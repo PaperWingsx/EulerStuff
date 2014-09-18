@@ -67,5 +67,6 @@ public class CSVHandler {
 		if(file!=null){return true;}
 		else{return false;}		
 	}
+	private void nothing(){}
 
 }
