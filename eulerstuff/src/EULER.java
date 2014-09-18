@@ -11,13 +11,12 @@ import java.util.ArrayList;
 public class EULER {
 	EULER euler = new EULER();
 	public static void main(String[] args) {
-		try {
-			System.out.println("nthFibNumber:"+nthFibNumber(5));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
+			try {
+				System.out.println("question 10: "+question10());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	}
 
 	// find the sum of all numbers that are multiples of var 1 or var 2
@@ -161,7 +160,7 @@ public class EULER {
 		return out;
 	}
 	//list all prime factors
-	private ArrayList<Integer> listAllPrimeFactors(ArrayList<Integer> input){
+	private ArrayList<Integer> listAllPrimeFactors(ArrayList<Integer> input) throws IOException{
 		ArrayList<Integer> out = new ArrayList<Integer>();
 		for(int i =0;i<input.size();i++){
 			if(isPrime(input.get(i))){
@@ -171,17 +170,89 @@ public class EULER {
 		return out;
 	}
 	// ERROR CHECKING IS FOR SCRUBS
-	private boolean isPrime(int input){
+	private static boolean isPrime(int input) throws IOException{
+		if(input ==0|| input ==1){
+			return true;
+		}
+		
+	// if 1,0 ignore   DONE
+		// get lsit of all primes
+		PrimeCollection PC=new PrimeCollection();
+		if(PC.contains(input)){
+			return true;
+		}
+		else{// start calculating primes
+			ArrayList<Integer> primes = PC.toArrayList();
+			for(Integer p : primes){
+				if(input%p==0){
+					return false;
+				}
+			}
+			Integer lastPrime = primes.get(primes.size()-1);
+			for(int q = lastPrime;q<input;q++){
+				
+				
+			}
+			
+			
+		}
+		
+		// if on list return
+		//else get last entry in list
+		// if last entry is greater than input its not prime
+		//else check if prime vs entire list,
+		// if not count upwards from last list entry
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		boolean out = true;
-		for(int i = 0;i< input;i++){
+		for(int i = 2;i< input;i++){
 			if(input%i==0){
 				out=false;
 			}
 		}
+
+
+		PrimeCollection PC1 = new PrimeCollection();
+		if(PC1.contains(input)){
+			return true;
+		}
+		else{
+			ArrayList<Integer> plist = PC1.toArrayList();
+			for(int p = PC1.getLast();p<input;p++){
+				for(Integer q : plist){
+					if(input%q==0){
+						return false;
+					}
+				}
+				
+				
+			}
+
+
+		}
+		ArrayList<Integer> filecontents = PC1.toArrayList();
+		for(Integer i : filecontents){
+			if(input%i==0){
+				out=false;
+				break;
+			}
+		}
+		if(out){
+
+		}
+
 		return  out;
 	}
 	// THE QUESTION WANTS AN INPUT OF 600851475143
-	private Integer question3(int input){
+	private Integer question3(int input) throws IOException{
 		int out = 0;
 		ArrayList<Integer> factors = listAllFactors(input);
 		ArrayList<Integer> PFactors = listAllPrimeFactors(factors);
@@ -229,7 +300,7 @@ public class EULER {
 		}
 		return out;
 	}
-// returns x^x
+	// returns x^x
 	private int powerofself(int input){
 		int out = input;
 		int base = input;
@@ -285,7 +356,51 @@ public class EULER {
 		}
 		return out;
 	}
-
+	private static int sumOfPrimes(int limit) throws IOException{
+		ArrayList<Integer> primes = new ArrayList<Integer>();
+		for(int i = 0; i<limit;i++){
+			if(isPrime(i)){
+				primes.add(i);
+				System.out.println(i);
+			}
+		}
+		return sumOfArray(primes);
+	}
+	private static int sumOfArray(ArrayList<Integer> inlist){
+		int total =0;
+		for(int i :inlist){
+			total +=i;
+		}
+		return total;
+	}
+	private static void testIsPrime() throws IOException{
+		for(int i=0; i <10000;i++){
+			if(isPrime(i)){
+				System.out.println(i);
+			}
+		}
+	}
+	private static int question10() throws IOException{
+		ArrayList<Integer> primeList= new ArrayList<Integer>();
+		PrimeCollection pc = new PrimeCollection();
+		int i=2;
+		while(i<2000000){
+			Boolean isPrime = true;
+			for(int p:primeList){
+				if(i%p==0){
+				isPrime = false;	
+				break;
+				}
+			}
+			if(isPrime){
+				System.out.println("Adding: "+i );
+				primeList.add(i);
+				pc.add(i);
+			}
+			i++;
+		}
+return 0;
+	}
 
 
 }
